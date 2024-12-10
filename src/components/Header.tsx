@@ -21,7 +21,7 @@ const Header: React.FC = () => {
 	const [navopen, setNavOpen] = useState(false);
 
 	return (
-		<nav className="flex flex-row justify-between px-3 py-10 shadow-lg relative">
+		<nav className="flex flex-row justify-between px-3 py-10 shadow-lg relative mx-8">
 			<div className="font-bold text-2xl mr-60">LOGO</div>
 			<div className="hidden md:flex justify-around text-md w-1/2">
 				{Navlist.map((link, index) => {

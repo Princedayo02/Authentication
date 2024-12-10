@@ -4,13 +4,13 @@ interface Iinput {
 	type: string;
 	register: object;
 }
-const CustomInput: FC<Iinput> = ({ label, type, register }, props) => {
+const Input: FC<Iinput> = ({ label, type, register }, props) => {
 	return (
 		<div className="mb-4">
 			<label className="block mb-3">{label}</label>
 			<input
 				type={type || "text"}
-				className="p-3 focus:ring-1 focus:ring-blue-500 outline-none border border-yellow-500"
+				className="w-full rounded-md py-3 text-green my-4 hover:scale-110 transition-all ring-2 ring-green-500"
 				{...register}
 				{...props}
 			/>
@@ -18,4 +18,4 @@ const CustomInput: FC<Iinput> = ({ label, type, register }, props) => {
 	);
 };
 
-export default CustomInput;
+export default Input;
