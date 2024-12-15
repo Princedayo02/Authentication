@@ -22,8 +22,8 @@ const Header: React.FC = () => {
 
 	return (
 		<nav className="flex flex-row justify-between px-3 py-10 shadow-lg relative mx-8">
-			<div className="font-bold text-2xl mr-60">LOGO</div>
-			<div className="hidden md:flex justify-around text-md w-1/2">
+			<div className="font-bold text-2xl mr-20">LOGO</div>
+			<div className="hidden md:flex justify-around text-md w-1/2 mr-8">
 				{Navlist.map((link, index) => {
 					return (
 						<NavLink
@@ -66,15 +66,17 @@ const Header: React.FC = () => {
 						);
 					})}
 					<div className="md:hidden flex flex-col absolute z-20 gap-4 top-28 bg-white w-1/2 mb-8 mt-4 left-0 right-0 pl-20">
-						<NavLink
-							className={({ isActive }) =>
-								isActive
-									? "bg-green-500 text-white  px-4 py-2 rounded-lg"
-									: "hover:bg-green-800 px-4 py-2 rounded-lg hover:text-white transition-all ease-out duration-500 ring-2 ring-green-500"
-							}
-							to="login">
-							Login
-						</NavLink>
+						<button onClick={() => setNavOpen(false)}>
+							<NavLink
+								className={({ isActive }) =>
+									isActive
+										? "bg-green-500 text-white  px-4 py-2 rounded-lg"
+										: "hover:bg-green-800 px-4 py-2 rounded-lg hover:text-white transition-all ease-out duration-500 ring-2 ring-green-500"
+								}
+								to="login">
+								Login
+							</NavLink>
+						</button>
 
 						<NavLink
 							className={({ isActive }) =>
