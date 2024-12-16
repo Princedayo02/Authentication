@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import Input from "../components/Input";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { axiosClient } from "../axiosConfig";
 import { toast } from "react-toastify";
 
 const Login: React.FC = () => {
@@ -10,17 +10,43 @@ const Login: React.FC = () => {
 	const [email, setEmail] = useState("");
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(false);
+	console.log(password);
+	console.log(email);
+	// base url is localhost:4000
+	// login endpoint is /login
+	const handleSubmit = async (e: FormEvent) => {
+		e.preventDefault();
+		setLoading(true);
+		try {
+			const response = await axiosClient.post("/login", {
+				email,
+				password,
+			});
+			if (response.status === 200) {
+				setLoading(false);
+				localStorage.setItem("userToken", JSON.stringify(response.data.data.accessToken));
+				toast.success(response.data.message);
+				navigate("/home");
+			} else {
+			}
+		} catch (error: any) {
+			setLoading(false);
+			if (error.response !== undefined) {
+				toast.error(error.response);
+			}
+		}
+	};
 
 	return (
 		<div className="flex flex-col mx-auto w-full md:w-[80%] lg:w-1/2 px-20 mt-10">
 			<h1 className="text-4xl font-bold py-5 ">Login</h1>
 			<h2 className="font-bold text-xl mb-2">Good to have you back</h2>
 			<form className="py-4 text-green text-green-800 w-full">
-				<Input label="Username"></Input>
-				<Input label="Password"></Input>
+				<Input type="email" onChange={(value) => setEmail(value)} label="Email" />
+				<Input type="password" onChange={(value) => setPassword(value)} label="Password" />
 			</form>
-			<button className="border border-blue-500 hover:bg-blue-950 bg-blue-500 hover:scale-110 transition-all text-white rounded-xl flex justify-center m-3 p-3 w-40 align-middle mx-auto">
-				Submit
+			<button onClick={handleSubmit} className="button">
+				{loading ? "processing...." : "Login"}
 			</button>
 		</div>
 	);

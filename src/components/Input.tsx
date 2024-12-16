@@ -1,17 +1,21 @@
 import { FC } from "react";
 interface Iinput {
+	onChange: (value: string) => void;
 	label: string;
-	type: string;
-	register: object;
+	type?: string;
+	value?: string;
+	placeholder?: string;
 }
-const Input: FC<Iinput> = ({ label, type, register }, props) => {
+const Input: FC<Iinput> = ({ label, type, value, placeholder, onChange }, props) => {
 	return (
 		<div className="mb-4">
 			<label className="block mb-3">{label}</label>
 			<input
+				onChange={(e) => onChange(e.target.value)}
 				type={type || "text"}
-				className="w-full rounded-md py-3 text-green my-4 hover:scale-110 transition-all ring-2 ring-green-500"
-				{...register}
+				className="input"
+				value={value}
+				placeholder={placeholder}
 				{...props}
 			/>
 		</div>
