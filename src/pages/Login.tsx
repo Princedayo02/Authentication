@@ -18,16 +18,19 @@ const Login: React.FC = () => {
 		e.preventDefault();
 		setLoading(true);
 		try {
-			const response = await axiosClient.post("/login", {
+			const { data, status } = await axiosClient.post("/login", {
 				email,
 				password,
 			});
-			if (response.status === 200) {
+
+			alert("hey");
+			if (status === 200) {
 				setLoading(false);
-				localStorage.setItem("userToken", JSON.stringify(response.data.data.accessToken));
-				toast.success(response.data.message);
+				localStorage.setItem("userToken", JSON.stringify(data.data.accessToken));
+				toast.success(data.message);
 				navigate("/home");
 			} else {
+				toast.warn("login failed");
 			}
 		} catch (error: any) {
 			setLoading(false);
