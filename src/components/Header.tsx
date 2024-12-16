@@ -9,7 +9,7 @@ interface INavlist {
 	path: string;
 }
 
-let Navlist: INavlist[] = [
+const Navlist: INavlist[] = [
 	{ title: "Home", path: "/home" },
 	{ title: "About", path: "/about" },
 	{ title: "Help", path: "/Help" },
@@ -57,16 +57,19 @@ const Header: React.FC = () => {
 				</NavLink>
 			</div>
 			{navopen ? (
-				<div className="md:hidden flex flex-col absolute z-20 top-28 bg-white w-full left-0 right-0 pl-20">
-					{Navlist.map((data, index) => {
-						return (
-							<NavLink key={index} to={data.path}>
-								{data.title}
-							</NavLink>
-						);
-					})}
-					<div className="md:hidden flex flex-col absolute z-20 gap-4 top-28 bg-white w-1/2 mb-8 mt-4 left-0 right-0 pl-20">
-						<button onClick={() => setNavOpen(false)}>
+				<div className="md:hidden flex items-end pr-10 shadow-xl py-4 flex-col gap-3   top-28 bg-white w-full right-0  ">
+					<button onClick={() => setNavOpen(false)} className="md:hidden  absolute right-8 top-14">
+						<IoCloseSharp />
+					</button>
+					<div className="space-y-3">
+						{Navlist.map((data, index) => {
+							return (
+								<NavLink className=" flex w-fit" key={index} to={data.path}>
+									{data.title}
+								</NavLink>
+							);
+						})}
+						<button className=" flex" onClick={() => setNavOpen(false)}>
 							<NavLink
 								className={({ isActive }) =>
 									isActive
@@ -77,26 +80,23 @@ const Header: React.FC = () => {
 								Login
 							</NavLink>
 						</button>
-
-						<NavLink
-							className={({ isActive }) =>
-								isActive
-									? "bg-green-500 text-white  px-4 py-2 rounded-lg"
-									: "hover:bg-green-800 px-4 py-2 rounded-lg hover:text-white transition-all ease-out duration-500 ring-2 ring-green-500"
-							}
-							to="/signup">
-							SignUp
-						</NavLink>
+						<button className="my-1 flex">
+							<NavLink
+								className={({ isActive }) =>
+									isActive
+										? "bg-green-500 text-white  px-4 py-2 rounded-lg"
+										: "hover:bg-green-800 px-4 py-2 rounded-lg hover:text-white transition-all ease-out duration-500 ring-2 ring-green-500"
+								}
+								to="/signup">
+								SignUp
+							</NavLink>
+						</button>
 					</div>
 				</div>
 			) : (
 				""
 			)}
-			{navopen ? (
-				<button onClick={() => setNavOpen(false)} className="md:hidden mr-14">
-					<IoCloseSharp />
-				</button>
-			) : (
+			{navopen ? null : (
 				<button onClick={() => setNavOpen(true)} className="md:hidden mr-14">
 					<FaAlignJustify />
 				</button>
